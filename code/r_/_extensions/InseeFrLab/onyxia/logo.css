@@ -1,0 +1,6 @@
+body::after {
+    content: url("sinai_logo.png");
+    position: fixed;
+    top: 0.5em;
+    left: 0.5em;
+}

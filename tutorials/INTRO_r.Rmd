@@ -1,0 +1,76 @@
+---
+title: "Intro to Working with MIMIC-IV with R"
+author: "Lathan Liou"
+date: "2023-10-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# you will need to first run install.packages("tidyverse")
+library(tidyverse)
+
+# Load in data 
+# Note that the file path is relative to the folder I'm currently in
+mimic_subj_id <- read_csv("data/mimic-iv-clinical-database-demo-2.2/demo_subject_id.csv")
+
+# read in .gz file
+patients <- read_csv(gzfile("data/mimic-iv-clinical-database-demo-2.2/hosp/patients.csv.gz"))
+
+labs <- read_csv(gzfile("data/mimic-iv-clinical-database-demo-2.2/hosp/labevents.csv.gz"))
+
+labs_dict <- read_csv(gzfile("data/mimic-iv-clinical-database-demo-2.2/hosp/d_labitems.csv.gz"))
+```
+
+# Explore Data
+
+What is the average age in this sample dataset?
+
+```{r}
+mean(patients$anchor_age, na.rm = TRUE)
+
+#another way using tidyverse
+patients %>%
+  summarize(mean_age = mean(anchor_age, na.rm = TRUE))
+```
+
+How many females are in this sample dataset?
+```{r}
+patients %>%
+  group_by(gender) %>%
+  summarize(n = n(),
+            prop = n/nrow(.))
+```
+
+What are the average ages for a male and for a female?
+```{r}
+patients %>%
+  group_by(gender) %>%
+  summarize(n = n(),
+            prop = n/nrow(.),
+            mean_age = mean(anchor_age, na.rm = TRUE))
+```
+
+What is the average glucose level in males and females in this sample dataset?
+
+```{r}
+# So we need multiple datasets to solve this
+# We first need to link up the lab dataset and the lab dictionary
+# then filter for only glucose values
+# then get the average value per patient (if patients have multiple)
+
+avg_glucose <- labs %>% 
+  left_join(labs_dict,
+            by = "itemid") %>%
+  filter(label == "Glucose") %>%
+  group_by(subject_id) %>%
+  summarize(avg_glucose = mean(valuenum, na.rm = TRUE)) %>%
+  ungroup()
+
+# Then we need link the lab values to our patient data
+patients %>%
+  left_join(avg_glucose,
+            by = "subject_id") %>%
+  group_by(gender) %>%
+  summarize(avg_overall_glucose = mean(avg_glucose, na.rm = TRUE))
+```

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Lathan Liou">
+
+<title>Session 2 PSET</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="workshop2_pset_files/libs/clipboard/clipboard.min.js"></script>
+<script src="workshop2_pset_files/libs/quarto-html/quarto.js"></script>
+<script src="workshop2_pset_files/libs/quarto-html/popper.min.js"></script>
+<script src="workshop2_pset_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="workshop2_pset_files/libs/quarto-html/anchor.min.js"></script>
+<link href="workshop2_pset_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="workshop2_pset_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="workshop2_pset_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="workshop2_pset_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="workshop2_pset_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<link href="workshop2_pset_files/libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Session 2 PSET</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Lathan Liou </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>For this problem set, you will be using randomly sampled data from a real-life cancer cohort.</p>
+<table class="table">
+<caption>Data Dictionary</caption>
+<colgroup>
+<col style="width: 51%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>age</td>
+<td>Age at which participant was diagnosed with breast cancer</td>
+</tr>
+<tr class="even">
+<td>follow_up</td>
+<td>Time from diagnosis to death/last follow-up</td>
+</tr>
+<tr class="odd">
+<td>dead</td>
+<td>0 = alive, 1 = dead</td>
+</tr>
+<tr class="even">
+<td>tumor_size</td>
+<td>Size of largest tumor (mm)</td>
+</tr>
+<tr class="odd">
+<td>n_nodes</td>
+<td>Number of positive lymph nodes at diagnosis</td>
+</tr>
+<tr class="even">
+<td>tumor_grade</td>
+<td>Tumor grade (1 = not terrible, 2 = moderately terrible, 3 = terrible)</td>
+</tr>
+<tr class="odd">
+<td>er</td>
+<td>Estrogen receptor status (0 = negative, 1 = positive)</td>
+</tr>
+<tr class="even">
+<td>pr</td>
+<td>Progesterone receptor status (0 = negative, 1 positive)</td>
+</tr>
+</tbody>
+</table>
+<section id="problem-1" class="level2">
+<h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
+<p>Recreate the following Table 1:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class="rowlabel firstrow lastrow"></th>
+<th class="firstrow lastrow"><span class="stratlabel">Alive<br><span class="stratn">(N=1915)</span></span></th>
+<th class="firstrow lastrow"><span class="stratlabel">Dead<br><span class="stratn">(N=451)</span></span></th>
+<th class="firstrow lastrow"><span class="stratlabel">Overall<br><span class="stratn">(N=2366)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="rowlabel firstrow">Age at Diagnosis</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>52.9 (8.53)</td>
+<td>52.2 (9.34)</td>
+<td>52.8 (8.69)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">53.0 [25.0, 69.0]</td>
+<td class="lastrow">52.0 [24.0, 69.0]</td>
+<td class="lastrow">53.0 [24.0, 69.0]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Tumor size (mm)</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>19.4 (11.7)</td>
+<td>25.5 (14.1)</td>
+<td>20.6 (12.4)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">17.0 [1.85, 200]</td>
+<td class="lastrow">22.0 [0.900, 100]</td>
+<td class="lastrow">18.0 [0.900, 200]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Number of nodes</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>1.05 (4.03)</td>
+<td>4.31 (9.58)</td>
+<td>1.67 (5.68)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">0 [0, 99.0]</td>
+<td class="lastrow">1.00 [0, 99.0]</td>
+<td class="lastrow">0 [0, 99.0]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Tumor Grade</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Well</td>
+<td>438 (22.9%)</td>
+<td>33 (7.3%)</td>
+<td>471 (19.9%)</td>
+</tr>
+<tr>
+<td class="rowlabel">Moderate</td>
+<td>912 (47.6%)</td>
+<td>211 (46.8%)</td>
+<td>1123 (47.5%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Poor</td>
+<td class="lastrow">565 (29.5%)</td>
+<td class="lastrow">207 (45.9%)</td>
+<td class="lastrow">772 (32.6%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Estrogen Receptor Status</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Negative</td>
+<td>423 (22.1%)</td>
+<td>153 (33.9%)</td>
+<td>576 (24.3%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Positive</td>
+<td class="lastrow">1492 (77.9%)</td>
+<td class="lastrow">298 (66.1%)</td>
+<td class="lastrow">1790 (75.7%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">Progesterone Receptor Status</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Negative</td>
+<td>476 (24.9%)</td>
+<td>194 (43.0%)</td>
+<td>670 (28.3%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Positive</td>
+<td class="lastrow">1439 (75.1%)</td>
+<td class="lastrow">257 (57.0%)</td>
+<td class="lastrow">1696 (71.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Hints:</p>
+<ul>
+<li><p>Use <code>str()</code> to check the types of the variables. You may want to turn some variables into factors. See the slides for the code.</p></li>
+<li><p>Use the <code>table1</code> package covered in the workshop</p></li>
+</ul>
+</section>
+<section id="problem-2" class="level2">
+<h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
+<p>You want to know whether there is a difference between the age of those who are alive and those who are dead. Choose the correct statistical test and understand why. Is the result statistically significant?</p>
+<div class="cell">
+
+</div>
+</section>
+<section id="problem-3" class="level2">
+<h2 class="anchored" data-anchor-id="problem-3">Problem 3</h2>
+<p>You’re trying to assess whether you can build an explanatory model between the association of tumor size and death. What model should you use?</p>
+<p>Adjust for age, number of nodes, estrogen receptor status, and progesterone receptor status. Is the association statistically significant?</p>
+<p>Bonus: What different type of model could you run given the variables you were provided? (Hint: look at the variable <code>follow_up</code>)</p>
+<div class="cell">
+
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

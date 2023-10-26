@@ -1,0 +1,20 @@
+title: Onyxia Presentation (light theme)
+author: Romain Lesur
+version: 1.1.0
+contributes:
+  formats:
+    revealjs:
+      filters: [bg.lua]
+      theme: [default, onyxia.scss]
+      css: [logo.css]
+      title-slide-attributes:
+        data-background-image: background.svg
+        data-background-size: contain
+      header-includes: |
+        <link rel="icon" type="image/png" sizes="100x125" href="sinai_logo.png">
+      email-obfuscation: javascript
+      format-resources:
+        - logo.svg
+        - background.svg
+        - sinai_logo.png
+       
