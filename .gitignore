@@ -114,3 +114,5 @@ progress/
 
 # Datasets
 data/__pycache__/
+data/diagnoses_icd.csv
+data/discharge.csv
